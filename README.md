@@ -7,8 +7,12 @@
 - Chạy 2 lệnh sau trên terminal để build database cho prisma:
 
 ```
-  - npx prisma db pull
-  - npx prisma generate
+  npx prisma db pull
+```
+
+```
+npx prisma generate
+
 ```
 
 - Start server: npm run start
@@ -17,3 +21,7 @@
 
 - File test Postman: **BaiTap_CongBui.postman_collection.json**
 - File SQL: **mysql_capstone-pinterest.sql**
+
+```
+
+```
