@@ -7,15 +7,14 @@
 - Chạy 2 lệnh sau trên terminal để build database cho prisma:
 
 ```
-  npx prisma db pull
+npx prisma db pull
 ```
 
 ```
 npx prisma generate
-
 ```
 
-- Start server: npm run start
+- Start server: `npm run start`
 
 ### Các File đính kèm source:
 
