@@ -1,0 +1,29 @@
+{
+  "type": "module",
+  "name": "capstone-pinterest",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "reload": "node --watch server.js"
+  },
+  "author": "congbui",
+  "license": "ISC",
+  "description": "Bài tập Capstone backend express-prisma-mysql",
+  "dependencies": {
+    "@prisma/client": "^6.0.1",
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemon": "^3.1.7",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "prisma": "^6.0.1"
+  }
+}

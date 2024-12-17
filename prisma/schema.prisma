@@ -1,0 +1,111 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  comment_id      Int       @id @default(autoincrement())
+  user_id         Int
+  pic_id          Int
+  comment_date    DateTime  @default(now()) @db.Timestamp(0)
+  comment_content String    @db.Text
+  is_deleted      Boolean?  @default(false)
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+  updated_at      DateTime? @default(now()) @db.Timestamp(0)
+  users           users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
+  pictures        pictures  @relation(fields: [pic_id], references: [pic_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_2")
+
+  @@index([pic_id], map: "pic_id")
+  @@index([user_id], map: "user_id")
+}
+
+model pictures {
+  pic_id          Int             @id @default(autoincrement())
+  pic_name        String          @db.VarChar(100)
+  pic_url         String          @db.VarChar(255)
+  pic_description String          @db.Text
+  user_id         Int?
+  is_deleted      Boolean?        @default(false)
+  created_at      DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at      DateTime?       @default(now()) @db.Timestamp(0)
+  comments        comments[]
+  users           users?          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "pictures_ibfk_1")
+  pictures_tags   pictures_tags[]
+  save_picture    save_picture[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model pictures_tags {
+  pic_tag_id Int       @id @default(autoincrement())
+  pic_id     Int?
+  tag_id     Int?
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  pictures   pictures? @relation(fields: [pic_id], references: [pic_id], onDelete: NoAction, onUpdate: NoAction, map: "pictures_tags_ibfk_1")
+  tags       tags?     @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction, map: "pictures_tags_ibfk_2")
+
+  @@index([pic_id], map: "pic_id")
+  @@index([tag_id], map: "tag_id")
+}
+
+model save_picture {
+  save_id    Int       @id @default(autoincrement())
+  user_id    Int
+  pic_id     Int
+  save_date  DateTime  @default(now()) @db.Timestamp(0)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  users      users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "save_picture_ibfk_1")
+  pictures   pictures  @relation(fields: [pic_id], references: [pic_id], onDelete: NoAction, onUpdate: NoAction, map: "save_picture_ibfk_2")
+
+  @@index([pic_id], map: "pic_id")
+  @@index([user_id], map: "user_id")
+}
+
+model tags {
+  tag_id        Int             @id @default(autoincrement())
+  tag_name      String          @unique(map: "tag_name") @db.VarChar(100)
+  created_at    DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(0)
+  pictures_tags pictures_tags[]
+}
+
+model users {
+  user_id      Int            @id @default(autoincrement())
+  email        String         @unique(map: "email") @db.VarChar(255)
+  password     String         @db.VarChar(255)
+  user_name    String?        @unique(map: "user_name") @db.VarChar(100)
+  first_name   String?        @db.VarChar(100)
+  last_name    String?        @db.VarChar(100)
+  full_name    String?        @db.VarChar(100)
+  age          Int?
+  avatar       String?        @db.VarChar(255)
+  user_bio     String?        @db.Text
+  user_web     String?        @db.VarChar(255)
+  role_id      Int            @default(2)
+  is_deleted   Boolean?       @default(false)
+  created_at   DateTime?      @default(now()) @db.Timestamp(0)
+  updated_at   DateTime?      @default(now()) @db.Timestamp(0)
+  comments     comments[]
+  pictures     pictures[]
+  save_picture save_picture[]
+  roles        roles          @relation(fields: [role_id], references: [role_id], onDelete: NoAction, onUpdate: NoAction, map: "users_ibfk_1")
+
+  @@index([role_id], map: "role_id")
+}
+
+model roles {
+  role_id          Int       @id @default(autoincrement())
+  role_name        String    @unique(map: "role_name") @db.VarChar(100)
+  role_description String?   @db.VarChar(200)
+  is_active        Boolean?  @default(true)
+  created_at       DateTime? @default(now()) @db.Timestamp(0)
+  updated_at       DateTime? @default(now()) @db.Timestamp(0)
+  users            users[]
+}
