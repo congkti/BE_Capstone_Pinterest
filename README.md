@@ -5,8 +5,12 @@
 - Tạo database MySQL dùng file **mysql_capstone-pinterest.sql**
 - Khai báo thông tin db trong file .env (nếu chưa có)
 - Chạy 2 lệnh sau trên terminal để build database cho prisma:
+
+```
   - npx prisma db pull
   - npx prisma generate
+```
+
 - Start server: npm run start
 
 ### Các File đính kèm source:
