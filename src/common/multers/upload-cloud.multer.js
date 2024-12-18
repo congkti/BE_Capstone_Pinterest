@@ -11,12 +11,6 @@ import {
 import createUrlPart from "../utils/create-url-part.util.js";
 import getDateNowString from "../utils/get-string-date-now.util.js";
 
-// cloudinary.config({
-//    cloud_name: 'vulebaolong',
-//    api_key: '375481467533217',
-//    api_secret: 'IdhzUoK7jRyQceWSIdUI2x86g24' // Click 'View API Keys' above to copy your API secret
-// });
-
 cloudinary.config({
   cloud_name: CLOUD_NAME,
   api_key: CLOUD_API_KEY,
