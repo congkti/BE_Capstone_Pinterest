@@ -53,7 +53,7 @@ const storage = new CloudinaryStorage({
       };
     } else {
       return {
-        folder: "upload",
+        folder: "bai-tap",
         public_id: fileName,
       };
     }
